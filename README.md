@@ -1,10 +1,12 @@
 # HedoraShop
-an ecommerce app built with flutter and nodeJS.
-state management: GetX.
-MVVM(Model-View-(View)Model) Architecture.
+an ecommerce app built with flutter and nodeJS.\n
+
+state management: GetX.\n
+
+MVVM(Model-View-(View)Model) Architecture.\n
 
 
-FeatureS
+## FeatureS
 
 | UI            | Logic         | Feature  |
 | ------------- | ------------- | -------- |
