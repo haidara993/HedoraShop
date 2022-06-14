@@ -6,10 +6,14 @@ import 'package:hedorashop/global/bindings.dart';
 import 'package:hedorashop/pages/controlview.dart';
 import 'package:hedorashop/pages/home_page.dart';
 
+import 'package:flutter_stripe/flutter_stripe.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+  Stripe.publishableKey =
+      "pk_test_51IZr3HApYMiHRCEPfSdLaWzGSzImzW2kc61cSI4mYf3JptVXsfFj2SG1xcBLBgLVdvW8EXckH50FgzKZeNp454dK00xplc6hCI";
   runApp(const MyApp());
 }
 

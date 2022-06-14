@@ -68,8 +68,8 @@ class CartViewModel extends GetxController {
   getTotalPrice() {
     totalPrice.value = 0.0;
     for (var i = 0; i < _cartProductModel.length; i++) {
-      totalPrice.value += (double.parse(
-          _cartProductModel[i].price * _cartProductModel[i].quantity));
+      totalPrice.value += (double.parse(_cartProductModel[i].price) *
+          _cartProductModel[i].quantity);
     }
   }
 

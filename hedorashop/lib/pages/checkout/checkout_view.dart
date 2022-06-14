@@ -1,12 +1,19 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
+import 'package:hedorashop/helpers/http_helper.dart';
 import 'package:hedorashop/pages/widgets/custom_button.dart';
 import 'package:hedorashop/pages/widgets/custom_text.dart';
 import 'package:hedorashop/pages/widgets/custom_text_field.dart';
 import 'package:hedorashop/themes/constant.dart';
 import 'package:hedorashop/viewmodels/cart_viewmodel.dart';
 import 'package:hedorashop/viewmodels/checkout_viewmodel.dart';
+
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CheckoutView extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
@@ -146,39 +153,70 @@ class CheckoutView extends StatelessWidget {
                             if (_formKey.currentState!.validate()) {
                               _formKey.currentState!.save();
                               await controller.addCheckoutToFireStore();
-                              Get.dialog(
-                                AlertDialog(
-                                  content: SingleChildScrollView(
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Icon(
-                                          Icons.check_circle_outline_outlined,
-                                          color: PRIMARY_COLOR,
-                                          size: 200.h,
-                                        ),
-                                        CustomText(
-                                          text: 'Order Submitted',
-                                          fontSize: 24,
-                                          fontWeight: FontWeight.bold,
-                                          color: PRIMARY_COLOR,
-                                          alignment: Alignment.center,
-                                        ),
-                                        SizedBox(
-                                          height: 40.h,
-                                        ),
-                                        CustomButton(
-                                          'Done',
-                                          () {
-                                            Get.back();
-                                          },
-                                        ),
-                                      ],
-                                    ),
+
+                              // final url = Uri.parse(
+                              //     "http://localhost:3000/api/v1/payment?amount=7000&currency=inr");
+                              // final response = await http.get(url);
+                              final response = await HttpHelper.get(
+                                  "http://localhost:3000/api/v1/payment?amount=7000&currency=inr");
+                              print(response.body);
+                              var jsonBody = jsonDecode(response.body);
+                              Map<String, dynamic>? paymentIntentData;
+                              paymentIntentData = jsonBody;
+                              if (paymentIntentData!["paymentIntent"] != "" &&
+                                  paymentIntentData["paymentIntent"] != null) {
+                                String _intent =
+                                    paymentIntentData["paymentIntent"];
+                                await Stripe.instance.initPaymentSheet(
+                                  paymentSheetParameters:
+                                      SetupPaymentSheetParameters(
+                                    paymentIntentClientSecret: _intent,
+                                    applePay: false,
+                                    googlePay: false,
+                                    merchantCountryCode: "IN",
+                                    merchantDisplayName: "Test",
+                                    testEnv: false,
+                                    customerId: paymentIntentData['customer'],
+                                    customerEphemeralKeySecret:
+                                        paymentIntentData['ephemeralKey'],
                                   ),
-                                ),
-                                barrierDismissible: false,
-                              );
+                                );
+
+                                await Stripe.instance.presentPaymentSheet();
+                              }
+                              // Get.dialog(
+                              //   AlertDialog(
+                              //     content: SingleChildScrollView(
+                              //       child: Column(
+                              //         mainAxisSize: MainAxisSize.min,
+                              //         children: [
+                              //           Icon(
+                              //             Icons.check_circle_outline_outlined,
+                              //             color: PRIMARY_COLOR,
+                              //             size: 200.h,
+                              //           ),
+                              //           CustomText(
+                              //             text: 'Order Submitted',
+                              //             fontSize: 24,
+                              //             fontWeight: FontWeight.bold,
+                              //             color: PRIMARY_COLOR,
+                              //             alignment: Alignment.center,
+                              //           ),
+                              //           SizedBox(
+                              //             height: 40.h,
+                              //           ),
+                              //           CustomButton(
+                              //             'Done',
+                              //             () {
+                              //               Get.back();
+                              //             },
+                              //           ),
+                              //         ],
+                              //       ),
+                              //     ),
+                              //   ),
+                              //   barrierDismissible: false,
+                              // );
                             }
                           },
                         ),

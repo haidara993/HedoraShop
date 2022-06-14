@@ -48,6 +48,7 @@ dependencies:
   flutter_svg: ^1.0.2
   sqflite: ^2.0.2
   rive: ^0.7.33
+  flutter_stripe: ^2.5.0
   
   #ui
   intl: ^0.17.0

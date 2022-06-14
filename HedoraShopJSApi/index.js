@@ -7,10 +7,11 @@ const cors = require('cors');
 require('dotenv/config');
 const authJwt = require('./helpers/jwt');
 const errorHandler = require('./helpers/error-handler');
-
+var cookieParser = require('cookie-parser')
 
 app.use(cors());
 app.options("*",cors());
+app.use(cookieParser());
 
 app.use(express.json());
 app.use(bodyParser.json());
@@ -24,6 +25,7 @@ const categoriesRoutes = require('./routes/category');
 const productsRoutes = require('./routes/product');
 const usersRoutes = require('./routes/users');
 const checkoutsRoutes = require('./routes/checkout');
+const paymentRoutes = require('./routes/stripe_payment');
 
 const api = process.env.API_URL;
 
@@ -31,6 +33,7 @@ app.use(`${api}/categories`, categoriesRoutes);
 app.use(`${api}/products`, productsRoutes);
 app.use(`${api}/users`, usersRoutes);
 app.use(`${api}/checkout`, checkoutsRoutes);
+app.use(`${api}/payment`, paymentRoutes);
 
 
 mongoose
