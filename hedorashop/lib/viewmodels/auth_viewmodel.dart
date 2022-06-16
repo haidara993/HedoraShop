@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hedorashop/enums/UserType.dart';
 import 'package:hedorashop/helpers/http_helper.dart';
@@ -9,7 +10,29 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
 class AuthViewModel extends GetxController {
-  String? email, password, name;
+  ValueNotifier<bool> _loading = ValueNotifier(false);
+  ValueNotifier<bool> get loading => _loading;
+
+  String? email,
+      password,
+      name,
+      confirmPassword,
+      phone,
+      street,
+      zip,
+      city,
+      country;
+
+  final userNameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+  final phoneController = TextEditingController();
+  final streetController = TextEditingController();
+  final zipController = TextEditingController();
+  final cityController = TextEditingController();
+  final countryController = TextEditingController();
+
   User? _user = new User();
   User? get user => _user;
 
@@ -59,6 +82,45 @@ class AuthViewModel extends GetxController {
       var account = User.fromJson(jsonObject);
       _user = account;
       pref.setString("jwt", account.jwt!);
+      pref.setString("userId", account.id!);
+      SharedPreferencesHelper.saveAccountToLocal(account);
+
+      var payload = JwtDecoder.decode((user?.jwt)!);
+      if (payload["isAdmin"]) {
+        pref.setString('userType', "Admin");
+      } else {
+        pref.setString('userType', "Customer");
+      }
+
+      isLogged.value = true;
+      update();
+    }
+  }
+
+  createaccountwithemailandpassword() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    Map<String, dynamic> accountInput = {
+      "email": email,
+      "password": password,
+      "name": name,
+      "phone": phone,
+      "isAdmin": false,
+      "Street": street,
+      "apartement": "",
+      "country": country,
+      "city": city,
+      "zip": zip,
+    };
+
+    var rs = await HttpHelper.post(REGISTER_ENDPOINT, accountInput);
+
+    if (rs.statusCode == 200) {
+      var jsonObject = jsonDecode(rs.body);
+      print(jsonObject);
+      var account = User.fromJson(jsonObject);
+      _user = account;
+      pref.setString("jwt", account.jwt!);
+      pref.setString("userId", account.id!);
       SharedPreferencesHelper.saveAccountToLocal(account);
 
       var payload = JwtDecoder.decode((user?.jwt)!);

@@ -9,10 +9,10 @@ class Binding extends Bindings {
   @override
   void dependencies() {
     // TODO: implement dependencies
-    Get.lazyPut(() => AuthViewModel());
+    Get.put(AuthViewModel());
     Get.lazyPut(() => ControlViewModel());
     Get.lazyPut(() => HomeViewModel());
-    Get.lazyPut(() => CartViewModel());
-    Get.lazyPut(() => CheckoutViewModel());
+    Get.put(CartViewModel());
+    Get.put(CheckoutViewModel());
   }
 }

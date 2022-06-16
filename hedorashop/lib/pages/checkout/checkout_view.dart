@@ -5,12 +5,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:hedorashop/helpers/http_helper.dart';
+import 'package:hedorashop/pages/home_page.dart';
 import 'package:hedorashop/pages/widgets/custom_button.dart';
 import 'package:hedorashop/pages/widgets/custom_text.dart';
 import 'package:hedorashop/pages/widgets/custom_text_field.dart';
 import 'package:hedorashop/themes/constant.dart';
 import 'package:hedorashop/viewmodels/cart_viewmodel.dart';
 import 'package:hedorashop/viewmodels/checkout_viewmodel.dart';
+import 'package:hedorashop/viewmodels/home_viewmodel.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -152,13 +154,13 @@ class CheckoutView extends StatelessWidget {
                           () async {
                             if (_formKey.currentState!.validate()) {
                               _formKey.currentState!.save();
-                              await controller.addCheckoutToFireStore();
 
+                              print("object");
                               // final url = Uri.parse(
                               //     "http://localhost:3000/api/v1/payment?amount=7000&currency=inr");
                               // final response = await http.get(url);
                               final response = await HttpHelper.get(
-                                  "http://localhost:3000/api/v1/payment?amount=7000&currency=inr");
+                                  "https://hedorashop.herokuapp.com/api/v1/payment?amount=7000&currency=inr");
                               print(response.body);
                               var jsonBody = jsonDecode(response.body);
                               Map<String, dynamic>? paymentIntentData;
@@ -173,8 +175,8 @@ class CheckoutView extends StatelessWidget {
                                     paymentIntentClientSecret: _intent,
                                     applePay: false,
                                     googlePay: false,
-                                    merchantCountryCode: "IN",
-                                    merchantDisplayName: "Test",
+                                    merchantCountryCode: "US",
+                                    merchantDisplayName: "HedoraShop",
                                     testEnv: false,
                                     customerId: paymentIntentData['customer'],
                                     customerEphemeralKeySecret:
@@ -184,39 +186,42 @@ class CheckoutView extends StatelessWidget {
 
                                 await Stripe.instance.presentPaymentSheet();
                               }
-                              // Get.dialog(
-                              //   AlertDialog(
-                              //     content: SingleChildScrollView(
-                              //       child: Column(
-                              //         mainAxisSize: MainAxisSize.min,
-                              //         children: [
-                              //           Icon(
-                              //             Icons.check_circle_outline_outlined,
-                              //             color: PRIMARY_COLOR,
-                              //             size: 200.h,
-                              //           ),
-                              //           CustomText(
-                              //             text: 'Order Submitted',
-                              //             fontSize: 24,
-                              //             fontWeight: FontWeight.bold,
-                              //             color: PRIMARY_COLOR,
-                              //             alignment: Alignment.center,
-                              //           ),
-                              //           SizedBox(
-                              //             height: 40.h,
-                              //           ),
-                              //           CustomButton(
-                              //             'Done',
-                              //             () {
-                              //               Get.back();
-                              //             },
-                              //           ),
-                              //         ],
-                              //       ),
-                              //     ),
-                              //   ),
-                              //   barrierDismissible: false,
-                              // );
+                              await controller.addCheckoutToFireStore();
+                              Get.dialog(
+                                AlertDialog(
+                                  content: SingleChildScrollView(
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Icon(
+                                          Icons.check_circle_outline_outlined,
+                                          color: PRIMARY_COLOR,
+                                          size: 200.h,
+                                        ),
+                                        CustomText(
+                                          text: 'Order Submitted',
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.bold,
+                                          color: PRIMARY_COLOR,
+                                          alignment: Alignment.center,
+                                        ),
+                                        SizedBox(
+                                          height: 40.h,
+                                        ),
+                                        CustomButton(
+                                          'Done',
+                                          () {
+                                            Get.to(HomePage());
+                                            Get.find<HomeViewModel>()
+                                                .changeToNormal();
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                barrierDismissible: false,
+                              );
                             }
                           },
                         ),

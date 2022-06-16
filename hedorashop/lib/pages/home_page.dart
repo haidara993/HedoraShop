@@ -6,9 +6,11 @@ import 'package:hedorashop/models/cart_product_model.dart';
 import 'package:hedorashop/pages/cart/cart_page.dart';
 import 'package:hedorashop/pages/category_products_view.dart';
 import 'package:hedorashop/pages/detailScreen.dart';
+import 'package:hedorashop/pages/profile_view.dart';
 import 'package:hedorashop/pages/search_view.dart';
 import 'package:hedorashop/pages/widgets/custom_text.dart';
 import 'package:hedorashop/themes/constant.dart';
+import 'package:hedorashop/viewmodels/auth_viewmodel.dart';
 import 'package:hedorashop/viewmodels/cart_viewmodel.dart';
 import 'package:hedorashop/viewmodels/home_viewmodel.dart';
 
@@ -17,7 +19,6 @@ class HomePage extends GetWidget<HomeViewModel> {
   final panelTransation = Duration(milliseconds: 500);
 
   void _onVerticalGesture(DragUpdateDetails details) {
-    print(details.primaryDelta);
     if (details.primaryDelta! < -7) {
       controller.changeToCart();
     } else if (details.primaryDelta! > 7) {
@@ -126,72 +127,15 @@ class HomePage extends GetWidget<HomeViewModel> {
                                                     ),
                                                   ],
                                                 ),
-                                                Stack(
-                                                  children: [
-                                                    GestureDetector(
-                                                      onTap: () {
-                                                        Get.to(CartPage());
-                                                      },
-                                                      child: Container(
-                                                        padding:
-                                                            EdgeInsets.all(10),
-                                                        decoration: BoxDecoration(
-                                                            color: Colors.white,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        10),
-                                                            boxShadow: [
-                                                              BoxShadow(
-                                                                  color: Colors
-                                                                      .grey
-                                                                      .withOpacity(
-                                                                          0.3),
-                                                                  spreadRadius:
-                                                                      0.1,
-                                                                  blurRadius:
-                                                                      0.1,
-                                                                  offset:
-                                                                      Offset(
-                                                                          0, 1))
-                                                            ]),
-                                                        child: Icon(
-                                                          Icons
-                                                              .shopping_cart_outlined,
-                                                          color: Colors.grey,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Positioned(
-                                                      right: 5,
-                                                      top: 5,
-                                                      child: Container(
-                                                        width: 17,
-                                                        height: 17,
-                                                        decoration: BoxDecoration(
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .primaryColor,
-                                                            shape: BoxShape
-                                                                .circle),
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .only(
-                                                            left: 5,
-                                                          ),
-                                                          child: Obx(() => Text(
-                                                                Get.find<
-                                                                        CartViewModel>()
-                                                                    .cartnum
-                                                                    .value
-                                                                    .toString(),
-                                                              )),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                )
+                                                GestureDetector(
+                                                  child: CircleAvatar(
+                                                      backgroundImage: AssetImage(
+                                                          'assets/images/profile.png'),
+                                                      radius: 25),
+                                                  onTap: () async {
+                                                    Get.to(ProfileView());
+                                                  },
+                                                ),
                                               ],
                                             ),
                                           ),
@@ -395,67 +339,72 @@ class HomePage extends GetWidget<HomeViewModel> {
                                                               ),
                                                             ),
                                                           ),
-                                                          Stack(
-                                                            children: [
-                                                              Container(
-                                                                padding:
-                                                                    EdgeInsets
-                                                                        .all(
-                                                                            10),
-                                                                decoration: BoxDecoration(
-                                                                    color: Colors
-                                                                        .white,
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            10),
-                                                                    boxShadow: [
-                                                                      BoxShadow(
-                                                                          color: Colors.grey.withOpacity(
-                                                                              0.3),
-                                                                          spreadRadius:
-                                                                              0.1,
-                                                                          blurRadius:
-                                                                              0.1,
-                                                                          offset: Offset(
-                                                                              0,
-                                                                              1))
-                                                                    ]),
-                                                                child: Icon(
-                                                                  Icons
-                                                                      .shopping_cart_outlined,
-                                                                  color: Colors
-                                                                      .grey,
-                                                                ),
-                                                              ),
-                                                              Positioned(
-                                                                right: 5,
-                                                                top: 5,
-                                                                child:
-                                                                    Container(
-                                                                  width: 17,
-                                                                  height: 17,
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              Get.find<
+                                                                      HomeViewModel>()
+                                                                  .changeToCart();
+                                                            },
+                                                            child: Stack(
+                                                              children: [
+                                                                Container(
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              10),
                                                                   decoration: BoxDecoration(
-                                                                      color: Theme.of(
-                                                                              context)
-                                                                          .primaryColor,
-                                                                      shape: BoxShape
-                                                                          .circle),
-                                                                  child:
-                                                                      Padding(
-                                                                    padding:
-                                                                        const EdgeInsets
-                                                                            .only(
-                                                                      left: 5,
-                                                                    ),
-                                                                    child: Obx(
-                                                                        () =>
-                                                                            Text(
-                                                                              Get.find<CartViewModel>().cartnum.value.toString(),
-                                                                            )),
+                                                                      color: Colors
+                                                                          .white,
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              10),
+                                                                      boxShadow: [
+                                                                        BoxShadow(
+                                                                            color: Colors.grey.withOpacity(
+                                                                                0.3),
+                                                                            spreadRadius:
+                                                                                0.1,
+                                                                            blurRadius:
+                                                                                0.1,
+                                                                            offset:
+                                                                                Offset(0, 1))
+                                                                      ]),
+                                                                  child: Icon(
+                                                                    Icons
+                                                                        .shopping_cart_outlined,
+                                                                    color: Colors
+                                                                        .grey,
                                                                   ),
                                                                 ),
-                                                              ),
-                                                            ],
+                                                                Positioned(
+                                                                  right: 5,
+                                                                  top: 5,
+                                                                  child:
+                                                                      Container(
+                                                                    width: 17,
+                                                                    height: 17,
+                                                                    decoration: BoxDecoration(
+                                                                        color: Theme.of(context)
+                                                                            .primaryColor,
+                                                                        shape: BoxShape
+                                                                            .circle),
+                                                                    child:
+                                                                        Padding(
+                                                                      padding:
+                                                                          const EdgeInsets
+                                                                              .only(
+                                                                        left: 5,
+                                                                      ),
+                                                                      child: Obx(
+                                                                          () =>
+                                                                              Text(
+                                                                                Get.find<CartViewModel>().cartnum.value.toString(),
+                                                                              )),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
                                                           )
                                                         ],
                                                       )

@@ -3,7 +3,12 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/:id', async(req,res)=>{
-    const checkout = await Checkout.findById(req.params.id);
+    let filter = {};
+    if(req.params.id)
+    {
+         filter = {user: req.params.id}
+    }
+    const checkout = await Checkout.find(filter);
 
     if(!checkout) {
         res.status(500).json({message: 'The checkout with the given ID was not found.'})

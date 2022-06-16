@@ -10,7 +10,7 @@ class CheckoutService {
   Future<List<CheckoutModel>> getAll() async {
     // TODO: implement getAll
     SharedPreferences pref = await SharedPreferences.getInstance();
-    String userId = (Get.find<AuthViewModel>().user?.id)!;
+    String? userId = await pref.getString("userId");
     var token = pref.getString("jwt");
     var rs = await HttpHelper.get(CHECKOUT_ENDPOINT + '/${userId}',
         bearerToken: token);
@@ -26,7 +26,7 @@ class CheckoutService {
 
   Future<bool> post(Map<String, dynamic> checkoutModel) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    String userId = (Get.find<AuthViewModel>().user?.id)!;
+
     var token = pref.getString("jwt");
     var rs = await HttpHelper.post(CHECKOUT_ENDPOINT, checkoutModel,
         bearerToken: token);

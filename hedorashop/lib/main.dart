@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: "hedorashop",
           initialBinding: Binding(),
-          home: HomePage(),
+          home: ControlView(),
         ),
       ),
     );

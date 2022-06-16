@@ -130,7 +130,25 @@ router.post('/register', async (req,res)=>{
     if(!user)
     return res.status(400).send('the user cannot be created!')
 
-    res.send(user);
+    const token = jwt.sign(
+        {
+            userId: user.id,
+            isAdmin: user.isAdmin
+        },
+        secret,
+        {expiresIn : '1d'}
+    )
+    res.send({
+        id: user.id ,
+        email:user.email,
+        name:user.name,
+        phone:user.phone,
+        street:user.street,
+        apartment:user.apartment,
+        zip:user.zip,
+        city:user.city,
+        country:user.country,
+        jwt: token});
 })
 
 

@@ -63,6 +63,7 @@ class CartViewModel extends GetxController {
     await dbHelper.deleteAllProducts();
     getAllProducts();
     totalPrice.value = 0;
+    update();
   }
 
   getTotalPrice() {

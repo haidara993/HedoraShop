@@ -1,10 +1,13 @@
 import 'package:get/get.dart';
 import 'package:hedorashop/helpers/shared_preferences_helper.dart';
 import 'package:hedorashop/models/checkout_model.dart';
+import 'package:hedorashop/models/user.dart';
 import 'package:hedorashop/services/checkout_service.dart';
 import 'package:hedorashop/viewmodels/auth_viewmodel.dart';
 import 'package:hedorashop/viewmodels/cart_viewmodel.dart';
+import 'package:hedorashop/viewmodels/home_viewmodel.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CheckoutViewModel extends GetxController {
   String? street, city, state, country, phone;
@@ -31,7 +34,9 @@ class CheckoutViewModel extends GetxController {
   }
 
   addCheckoutToFireStore() async {
-    String userId = (Get.find<AuthViewModel>().user?.id)!;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    String? user = prefs.getString("userId");
     Map<String, dynamic> checkout = {
       "street": street!,
       "city": city!,
@@ -40,13 +45,13 @@ class CheckoutViewModel extends GetxController {
       "phone": phone!,
       "totalPrice": Get.find<CartViewModel>().totalPrice.value.toString(),
       "date": DateFormat.yMMMd().add_jm().format(DateTime.now()),
-      "userId": userId
+      "user": user
     };
     var rs = await CheckoutService().post(checkout);
 
     if (rs == true) {
       Get.find<CartViewModel>().removeAllProducts();
-      Get.back();
+
       _getCheckoutsFromFireStore();
     }
   }

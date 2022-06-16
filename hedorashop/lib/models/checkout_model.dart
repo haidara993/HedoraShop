@@ -1,6 +1,6 @@
 class CheckoutModel {
   late String street, city, state, country, phone, totalPrice, date;
-  late String userId;
+  late String user;
 
   CheckoutModel(
       {required this.street,
@@ -10,7 +10,7 @@ class CheckoutModel {
       required this.phone,
       required this.totalPrice,
       required this.date,
-      required this.userId});
+      required this.user});
 
   CheckoutModel.fromJson(dynamic map) {
     street = map['street'];
@@ -20,7 +20,7 @@ class CheckoutModel {
     phone = map['phone'];
     totalPrice = map['totalPrice'];
     date = map['date'];
-    userId = map['userId'];
+    user = map['user'];
   }
 
   toJson() {
@@ -32,7 +32,7 @@ class CheckoutModel {
       'phone': phone,
       'totalPrice': totalPrice,
       'date': date,
-      'userId': userId,
+      'user': user,
     };
   }
 }

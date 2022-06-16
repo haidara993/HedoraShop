@@ -7,7 +7,7 @@ import 'package:hedorashop/pages/checkout/checkout_view.dart';
 import 'package:hedorashop/pages/widgets/custom_text.dart';
 import 'package:hedorashop/viewmodels/cart_viewmodel.dart';
 
-class CartPage extends StatelessWidget {
+class CartPage extends GetWidget<CartViewModel> {
   const CartPage({Key? key}) : super(key: key);
 
   @override

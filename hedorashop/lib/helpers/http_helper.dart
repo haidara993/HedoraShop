@@ -3,8 +3,9 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
-const DOMAIN = 'http://localhost:3000/api/v1/';
+const DOMAIN = 'https://hedorashop.herokuapp.com/api/v1/';
 const LOGIN_ENDPOINT = DOMAIN + 'users/login';
+const REGISTER_ENDPOINT = DOMAIN + 'users/register';
 const CATEGORY_ENDPOINT = DOMAIN + 'categories';
 const PRODUCT_ENDPOINT = DOMAIN + 'products';
 const FAVORITE_ENDPOINT = DOMAIN + 'favorites';

@@ -21,6 +21,7 @@ app.use("/public/uploads", express.static(__dirname + "/public/uploads"));
 app.use(errorHandler);
 
 
+
 const categoriesRoutes = require('./routes/category');
 const productsRoutes = require('./routes/product');
 const usersRoutes = require('./routes/users');
@@ -49,5 +50,5 @@ console.log(err);
 
 const PORT = process.env.PORT || 8080
 app.listen(PORT,()=>{
-    console.log('server is running ........');
+    console.log('server is currently running ........');
 });
