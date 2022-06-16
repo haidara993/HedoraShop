@@ -24,10 +24,10 @@ MVVM(Model-View-(View)Model) Architecture.
 | :x:           | :x:         | Cards page  |
 | :x:           | :x:         | Notifications page  |
 
-##Database 
+## Database 
 the app use mongodb database you need to make an account on mongodb then get the connection string and replace it in .env file in nodejs api.
 
-##Stripe Payment 💳:
+## Stripe Payment 💳:
 the app use stripe payment getway you need to make an account and get "publishableKey" and "SecretKey" and put them in your app
 the app has its own test keys that you can use.
 use these test info
