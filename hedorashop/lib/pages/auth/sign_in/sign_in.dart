@@ -127,8 +127,10 @@ class SignInPage extends GetWidget<AuthViewModel> {
       //     : false,
       onTap: () {
         FocusScope.of(context).unfocus();
-        // bloc.add(SignInTappedEvent());
-        controller.login();
+        _formKey.currentState?.save();
+        if (_formKey.currentState!.validate()) {
+          controller.login();
+        }
       },
     );
   }

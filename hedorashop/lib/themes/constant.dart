@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 //
-const Color PRIMARY_COLOR = Color(0xff222831);
+const Color PRIMARY_COLOR = Colors.orange;
 const Color BACKGROUND_COLOR = Color(0xffeeeeee);
 const Color FOREGROUND_COLOR = Color(0xffC94D49);
 const Color PRICE_COLOR_PRIMARY = FOREGROUND_COLOR;

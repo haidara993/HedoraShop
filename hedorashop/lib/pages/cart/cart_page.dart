@@ -57,6 +57,7 @@ class CartPage extends GetWidget<CartViewModel> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: CircleAvatar(
+                                backgroundColor: Colors.white,
                                 backgroundImage: NetworkImage(
                                   controller.cartProductModel[index].image,
                                 ),

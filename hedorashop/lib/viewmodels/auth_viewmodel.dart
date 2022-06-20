@@ -6,6 +6,7 @@ import 'package:hedorashop/enums/UserType.dart';
 import 'package:hedorashop/helpers/http_helper.dart';
 import 'package:hedorashop/helpers/shared_preferences_helper.dart';
 import 'package:hedorashop/models/user.dart';
+import 'package:hedorashop/pages/controlview.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
@@ -93,6 +94,7 @@ class AuthViewModel extends GetxController {
       }
 
       isLogged.value = true;
+      Get.off(ControlView());
       update();
     }
   }
@@ -136,10 +138,12 @@ class AuthViewModel extends GetxController {
   }
 
   Future logOut() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
     User _user = new User();
     isLogged.value = false;
+    pref.clear();
     update();
-    return await SharedPreferencesHelper.deleteAccountFromLocal();
+    Get.to(ControlView());
   }
 
   Future<User?> getCurrentLogin() async {

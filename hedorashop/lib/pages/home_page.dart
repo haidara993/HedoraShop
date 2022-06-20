@@ -312,6 +312,7 @@ class HomePage extends GetWidget<HomeViewModel> {
                                                                             Hero(
                                                                               tag: 'list_${controller.cartProductModel[index].name}details',
                                                                               child: CircleAvatar(
+                                                                                backgroundColor: Colors.white,
                                                                                 backgroundImage: NetworkImage(
                                                                                   controller.cartProductModel[index].image,
                                                                                   scale: .25,
@@ -326,7 +327,7 @@ class HomePage extends GetWidget<HomeViewModel> {
                                                                                 backgroundColor: PRIMARY_COLOR,
                                                                                 child: Text(
                                                                                   controller.cartProductModel[index].quantity.toString(),
-                                                                                  style: TextStyle(color: Colors.white),
+                                                                                  style: TextStyle(color: Colors.black45),
                                                                                 ),
                                                                               ),
                                                                             )
@@ -384,8 +385,8 @@ class HomePage extends GetWidget<HomeViewModel> {
                                                                     width: 17,
                                                                     height: 17,
                                                                     decoration: BoxDecoration(
-                                                                        color: Theme.of(context)
-                                                                            .primaryColor,
+                                                                        color:
+                                                                            PRIMARY_COLOR,
                                                                         shape: BoxShape
                                                                             .circle),
                                                                     child:
@@ -582,7 +583,7 @@ class HomePage extends GetWidget<HomeViewModel> {
                 margin: EdgeInsets.only(top: 10, right: 10),
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
+                    color: PRIMARY_COLOR,
                     borderRadius: BorderRadius.circular(10)),
                 child: Text(
                   controller.categoryModel[index].name!,

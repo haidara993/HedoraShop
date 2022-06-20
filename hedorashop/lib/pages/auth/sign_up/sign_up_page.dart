@@ -82,56 +82,6 @@ class SignUpPage extends GetWidget<AuthViewModel> {
               controller.name = controller.userNameController.text;
             },
           ),
-          SigninTextField(
-            title: TextConstants.country,
-            controller: controller.countryController,
-            placeholder: TextConstants.countryPlaceholder,
-            textInputAction: TextInputAction.next,
-            errorText: TextConstants.countryErrorText,
-            onTextChanged: () {
-              controller.country = controller.countryController.text;
-            },
-          ),
-          SigninTextField(
-            title: TextConstants.city,
-            controller: controller.cityController,
-            placeholder: TextConstants.cityPlaceholder,
-            textInputAction: TextInputAction.next,
-            errorText: TextConstants.cityErrorText,
-            onTextChanged: () {
-              controller.city = controller.cityController.text;
-            },
-          ),
-          SigninTextField(
-            title: TextConstants.street,
-            controller: controller.streetController,
-            placeholder: TextConstants.streetPlaceholder,
-            textInputAction: TextInputAction.next,
-            errorText: TextConstants.streetErrorText,
-            onTextChanged: () {
-              controller.street = controller.streetController.text;
-            },
-          ),
-          SigninTextField(
-            title: TextConstants.zip,
-            controller: controller.zipController,
-            placeholder: TextConstants.zipPlaceholder,
-            textInputAction: TextInputAction.next,
-            errorText: TextConstants.zipErrorText,
-            onTextChanged: () {
-              controller.zip = controller.zipController.text;
-            },
-          ),
-          SigninTextField(
-            title: TextConstants.phone,
-            controller: controller.phoneController,
-            placeholder: TextConstants.phonePlaceholder,
-            textInputAction: TextInputAction.next,
-            errorText: TextConstants.phoneErrorText,
-            onTextChanged: () {
-              controller.phone = controller.phoneController.text;
-            },
-          ),
           const SizedBox(height: 20),
           SigninTextField(
             title: TextConstants.email,
@@ -159,20 +109,70 @@ class SignUpPage extends GetWidget<AuthViewModel> {
           ),
           const SizedBox(height: 20),
           SigninTextField(
-            title: TextConstants.confirmPassword,
-            placeholder: TextConstants.confirmPasswordPlaceholder,
-            obscureText: true,
-            // isError: state is ShowErrorState
-            //     ? !ValidationService.confirmPassword(
-            //         bloc.passwordController.text,
-            //         bloc.confirmPasswordController.text)
-            //     : false,
-            controller: controller.confirmPasswordController,
-            errorText: TextConstants.confirmPasswordErrorText,
+            title: TextConstants.phone,
+            controller: controller.phoneController,
+            placeholder: TextConstants.phonePlaceholder,
+            textInputAction: TextInputAction.next,
+            errorText: TextConstants.phoneErrorText,
             onTextChanged: () {
-              controller.confirmPassword =
-                  controller.confirmPasswordController.text;
+              controller.phone = controller.phoneController.text;
             },
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: SigninTextField(
+                  title: TextConstants.country,
+                  controller: controller.countryController,
+                  placeholder: TextConstants.countryPlaceholder,
+                  textInputAction: TextInputAction.next,
+                  errorText: TextConstants.countryErrorText,
+                  onTextChanged: () {
+                    controller.country = controller.countryController.text;
+                  },
+                ),
+              ),
+              Expanded(
+                child: SigninTextField(
+                  title: TextConstants.city,
+                  controller: controller.cityController,
+                  placeholder: TextConstants.cityPlaceholder,
+                  textInputAction: TextInputAction.next,
+                  errorText: TextConstants.cityErrorText,
+                  onTextChanged: () {
+                    controller.city = controller.cityController.text;
+                  },
+                ),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: SigninTextField(
+                  title: TextConstants.street,
+                  controller: controller.streetController,
+                  placeholder: TextConstants.streetPlaceholder,
+                  textInputAction: TextInputAction.next,
+                  errorText: TextConstants.streetErrorText,
+                  onTextChanged: () {
+                    controller.street = controller.streetController.text;
+                  },
+                ),
+              ),
+              Expanded(
+                child: SigninTextField(
+                  title: TextConstants.zip,
+                  controller: controller.zipController,
+                  placeholder: TextConstants.zipPlaceholder,
+                  textInputAction: TextInputAction.next,
+                  errorText: TextConstants.zipErrorText,
+                  onTextChanged: () {
+                    controller.zip = controller.zipController.text;
+                  },
+                ),
+              ),
+            ],
           ),
         ],
       ),

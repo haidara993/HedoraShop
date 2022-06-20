@@ -152,6 +152,11 @@ class _FitnessTextFieldState extends State<SigninTextField> {
         filled: true,
         fillColor: ColorConstants.textFieldBackground,
       ),
+      validator: (value) {
+        if (value == null) {
+          return 'asd';
+        }
+      },
       onSaved: (value) {
         widget.onTextChanged();
       },
