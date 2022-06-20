@@ -49,3 +49,8 @@ cvc: random 3 digits.
 
 postcode : random postcode.
 
+## Screenshots
+
+<img src="hedorashop/screenshots/PSX_20220620_143635.jpg">
+
+<img src="hedorashop/screenshots/PSX_20220620_143740.jpg">
