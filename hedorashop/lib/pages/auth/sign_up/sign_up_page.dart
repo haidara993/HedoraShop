@@ -75,47 +75,54 @@ class SignUpPage extends GetWidget<AuthViewModel> {
           SigninTextField(
             title: TextConstants.username,
             controller: controller.userNameController,
-            placeholder: TextConstants.userNamePlaceholder,
-            textInputAction: TextInputAction.next,
-            errorText: TextConstants.usernameErrorText,
-            onTextChanged: () {
-              controller.name = controller.userNameController.text;
+            hintText: TextConstants.userNamePlaceholder,
+            onSavedFn: (newValue) {
+              controller.name = newValue;
+            },
+            validatorFn: (value) {
+              if (value!.isEmpty || value.length < 4)
+                return TextConstants.usernameErrorText;
             },
           ),
           const SizedBox(height: 20),
           SigninTextField(
             title: TextConstants.email,
             controller: controller.emailController,
-            placeholder: TextConstants.emailPlaceholder,
-            textInputAction: TextInputAction.next,
+            hintText: TextConstants.emailPlaceholder,
             keyboardType: TextInputType.emailAddress,
-            errorText: TextConstants.emailErrorText,
-            onTextChanged: () {
-              controller.email = controller.emailController.text;
+            onSavedFn: (newValue) {
+              controller.email = newValue;
+            },
+            validatorFn: (value) {
+              if (value!.isEmpty || value.length < 4)
+                return TextConstants.emailErrorText;
             },
           ),
           const SizedBox(height: 20),
           SigninTextField(
             title: TextConstants.password,
-            placeholder: TextConstants.passwordPlaceholder,
+            hintText: TextConstants.passwordPlaceholder,
             obscureText: true,
-            // isError: state is ShowErrorState ? !ValidationService.password(bloc.passwordController.text) : false,
-            textInputAction: TextInputAction.next,
             controller: controller.passwordController,
-            errorText: TextConstants.passwordErrorText,
-            onTextChanged: () {
-              controller.password = controller.passwordController.text;
+            onSavedFn: (newValue) {
+              controller.password = newValue;
+            },
+            validatorFn: (value) {
+              if (value!.isEmpty || value.length < 4)
+                return TextConstants.passwordErrorText;
             },
           ),
           const SizedBox(height: 20),
           SigninTextField(
             title: TextConstants.phone,
             controller: controller.phoneController,
-            placeholder: TextConstants.phonePlaceholder,
-            textInputAction: TextInputAction.next,
-            errorText: TextConstants.phoneErrorText,
-            onTextChanged: () {
-              controller.phone = controller.phoneController.text;
+            hintText: TextConstants.phonePlaceholder,
+            onSavedFn: (newValue) {
+              controller.phone = newValue;
+            },
+            validatorFn: (value) {
+              if (value!.isEmpty || value.length < 4)
+                return TextConstants.phoneErrorText;
             },
           ),
           Row(
@@ -124,11 +131,13 @@ class SignUpPage extends GetWidget<AuthViewModel> {
                 child: SigninTextField(
                   title: TextConstants.country,
                   controller: controller.countryController,
-                  placeholder: TextConstants.countryPlaceholder,
-                  textInputAction: TextInputAction.next,
-                  errorText: TextConstants.countryErrorText,
-                  onTextChanged: () {
-                    controller.country = controller.countryController.text;
+                  hintText: TextConstants.countryPlaceholder,
+                  onSavedFn: (newValue) {
+                    controller.country = newValue;
+                  },
+                  validatorFn: (value) {
+                    if (value!.isEmpty || value.length < 4)
+                      return TextConstants.countryErrorText;
                   },
                 ),
               ),
@@ -136,11 +145,13 @@ class SignUpPage extends GetWidget<AuthViewModel> {
                 child: SigninTextField(
                   title: TextConstants.city,
                   controller: controller.cityController,
-                  placeholder: TextConstants.cityPlaceholder,
-                  textInputAction: TextInputAction.next,
-                  errorText: TextConstants.cityErrorText,
-                  onTextChanged: () {
-                    controller.city = controller.cityController.text;
+                  hintText: TextConstants.cityPlaceholder,
+                  onSavedFn: (newValue) {
+                    controller.city = newValue;
+                  },
+                  validatorFn: (value) {
+                    if (value!.isEmpty || value.length < 4)
+                      return TextConstants.cityErrorText;
                   },
                 ),
               ),
@@ -152,11 +163,13 @@ class SignUpPage extends GetWidget<AuthViewModel> {
                 child: SigninTextField(
                   title: TextConstants.street,
                   controller: controller.streetController,
-                  placeholder: TextConstants.streetPlaceholder,
-                  textInputAction: TextInputAction.next,
-                  errorText: TextConstants.streetErrorText,
-                  onTextChanged: () {
-                    controller.street = controller.streetController.text;
+                  hintText: TextConstants.streetPlaceholder,
+                  onSavedFn: (newValue) {
+                    controller.street = newValue;
+                  },
+                  validatorFn: (value) {
+                    if (value!.isEmpty || value.length < 4)
+                      return TextConstants.streetErrorText;
                   },
                 ),
               ),
@@ -164,11 +177,13 @@ class SignUpPage extends GetWidget<AuthViewModel> {
                 child: SigninTextField(
                   title: TextConstants.zip,
                   controller: controller.zipController,
-                  placeholder: TextConstants.zipPlaceholder,
-                  textInputAction: TextInputAction.next,
-                  errorText: TextConstants.zipErrorText,
-                  onTextChanged: () {
-                    controller.zip = controller.zipController.text;
+                  hintText: TextConstants.zipPlaceholder,
+                  onSavedFn: (newValue) {
+                    controller.zip = newValue;
+                  },
+                  validatorFn: (value) {
+                    if (value!.isEmpty || value.length < 4)
+                      return TextConstants.zipErrorText;
                   },
                 ),
               ),

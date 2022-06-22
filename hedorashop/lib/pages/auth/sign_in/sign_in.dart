@@ -75,24 +75,29 @@ class SignInPage extends GetWidget<AuthViewModel> {
         children: [
           SigninTextField(
             title: TextConstants.email,
-            textInputAction: TextInputAction.next,
             keyboardType: TextInputType.emailAddress,
-            placeholder: TextConstants.emailPlaceholder,
+            hintText: TextConstants.emailPlaceholder,
             controller: controller.emailController,
-            errorText: TextConstants.emailErrorText,
-            onTextChanged: () {
-              controller.email = controller.emailController.text;
+            onSavedFn: (newValue) {
+              controller.email = newValue;
+            },
+            validatorFn: (value) {
+              if (value!.isEmpty || value.length < 4)
+                return TextConstants.emailErrorText;
             },
           ),
           const SizedBox(height: 20),
           SigninTextField(
             title: TextConstants.password,
-            placeholder: TextConstants.passwordPlaceholderSignIn,
+            hintText: TextConstants.passwordPlaceholderSignIn,
             controller: controller.passwordController,
-            errorText: TextConstants.passwordErrorText,
             obscureText: true,
-            onTextChanged: () {
-              controller.password = controller.passwordController.text;
+            onSavedFn: (newValue) {
+              controller.password = newValue;
+            },
+            validatorFn: (value) {
+              if (value!.isEmpty || value.length < 4)
+                return TextConstants.passwordErrorText;
             },
           ),
         ],
@@ -122,9 +127,6 @@ class SignInPage extends GetWidget<AuthViewModel> {
   Widget _createSignInButton(BuildContext context) {
     return SigninButton(
       title: TextConstants.signIn,
-      // isEnabled: state is SignInButtonEnableChangedState
-      //     ? state.isEnabled
-      //     : false,
       onTap: () {
         FocusScope.of(context).unfocus();
         _formKey.currentState?.save();

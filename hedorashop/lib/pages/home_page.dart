@@ -161,8 +161,6 @@ class HomePage extends GetWidget<HomeViewModel> {
                                                                 BorderRadius
                                                                     .circular(
                                                                         10),
-                                                            borderSide:
-                                                                BorderSide.none,
                                                           ),
                                                           hintText:
                                                               'Search for a product',
